@@ -18,23 +18,30 @@ document.getElementById("generate").addEventListener("click", function () {
     numbers: numbers.checked,
     passwordLength: parseInt(passwordLength.value),
   }
+
   if (options.passwordLength >= 8 && options.passwordLength <= 128) {
     if (options.specialChar === false && options.upperCase === false && options.lowerCase === false && options.numbers === false) {
       alert("Please select at least one set of characters to include.")
-    } else {
-      if (options.specialChar === true) {
-        blankOptions = blankOptions.concat(specialOptions);
-      }
-      if (options.upperCase === true) {
-        blankOptions = blankOptions.concat(letterOptions);
-      }
-      if (options.numbers === true) {
-        blankOptions = blankOptions.concat(numberOptions);
-      }
-      if (options.lowerCase === true) {
-        blankOptions = blankOptions.concat(lowerOptions);
-      }
     }
+
+    var blankOptions = [];
+
+    if (options.specialChar === true) {
+      blankOptions = blankOptions.concat(specialOptions);
+    }
+
+    if (options.upperCase === true) {
+      blankOptions = blankOptions.concat(letterOptions);
+    }
+
+    if (options.numbers === true) {
+      blankOptions = blankOptions.concat(numberOptions);
+    }
+
+    if (options.lowerCase === true) {
+      blankOptions = blankOptions.concat(lowerOptions);
+    }
+
 
     var password = []
 
@@ -42,15 +49,11 @@ document.getElementById("generate").addEventListener("click", function () {
       var char = Math.floor(Math.random() * blankOptions.length);
       password.push(blankOptions[char])
     }
-
-    console.log(password.join(''));
-
     document.getElementById("password").value = password.join('');
-
+    
   } else {
     alert("Total characters must be in range of 8 to 128.")
   }
-
 });
 
 document.getElementById("copy").addEventListener("click", function () {
@@ -58,6 +61,4 @@ document.getElementById("copy").addEventListener("click", function () {
   copyText.select();
   copyText.setSelectionRange(0, 99999)
   document.execCommand("copy");
-
 });
-
